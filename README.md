@@ -64,6 +64,13 @@ This will lightoff the keyboard with -k off and the -l will create a ifle in /tm
 If you use kde or ubuntu or whatever you can add a hotkey to lightup/lightoff or any custom using kdesudo or gksudo or whatever to execute the command like:
 ```kdesudo /usr/bin/nodejs /home/myusername/.msi-klm/msi-keyboard-CLI.js -k off -l on```
 
+My ~/.bash_alias:
+```
+alias lighton='sudo /usr/bin/nodejs /home/kwaadpepper/.msi-klm/msi-keyboard-CLI.js -t cool -l on'
+alias lightoff='sudo /usr/bin/nodejs /home/kwaadpepper/.msi-klm/msi-keyboard-CLI.js -k off -l on'
+alias lightunlock='sudo /usr/bin/nodejs /home/kwaadpepper/.msi-klm/msi-keyboard-CLI.js -k off -l off'
+```
+
 If you want you can set any color at blink you wan't like:
 ```/usr/bin/nodejs /home/myusername/.msi-klm/msi-keyboard-CLI.js left red low 0 middle purple med 2000 right blue high 600```
 (not tested)

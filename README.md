@@ -66,9 +66,10 @@ If you use kde or ubuntu or whatever you can add a hotkey to lightup/lightoff or
 
 My ~/.bash_alias:
 ```
-alias lighton='sudo /usr/bin/nodejs /home/kwaadpepper/.msi-klm/msi-keyboard-CLI.js -t cool -l on'
-alias lightoff='sudo /usr/bin/nodejs /home/kwaadpepper/.msi-klm/msi-keyboard-CLI.js -k off -l on'
-alias lightunlock='sudo /usr/bin/nodejs /home/kwaadpepper/.msi-klm/msi-keyboard-CLI.js -k off -l off'
+alias keylight='sudo /usr/bin/nodejs /home/kwaadpepper/.msi-klm/msi-keyboard-CLI.js'
+alias keylighton='keylight -t cool -l on'
+alias keylightoff='keylight -k off -l on'
+alias keylightunlock='keylight -k off -l off'
 ```
 
 If you want you can set any color at blink you wan't like:

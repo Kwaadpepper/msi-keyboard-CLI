@@ -1,0 +1,1 @@
+{ "name": "led-manager", "dependencies": { "msi-keyboard":"*","minimist":"*" }}

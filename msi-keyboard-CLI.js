@@ -219,7 +219,7 @@ for(var key in argv._) {
       var blink = parseInt(argv._[parseInt(key)+3]);
       if(!isNaN(blink)) {
 	keyboard.blink([section],blink);
-      } else {
+      } else if(typeof argv._[parseInt(key)+3] !== "undefined") {
 	echo("blink must be a number, given is "+argv._[parseInt(key)+3]);
 	process.exit(128); // Exit program
       }

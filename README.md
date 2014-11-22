@@ -49,8 +49,8 @@ then type which nodejs, it should give you /usr/bin/nodejs
 
 So i have these lines my /etc/crontab i have the following lines:
 ```
-*       0,1,2,3,4,5,6,7,8,17,18,19,20,21,22,23  *       *       *       /usr/bin/nodejs /home/myusername/.msi-klm/msi-keyboard-CLI.js -t france
-*       9,10,11,12,13,14,15,16  *       *       *       /usr/bin/nodejs /home/myusername/.msi-klm/msi-keyboard-CLI.js -k off
+*       0,1,2,3,4,5,6,7,8,17,18,19,20,21,22,23  *       *       *       root /usr/bin/nodejs /home/kwaadpepper/.msi-klm/msi-keyboard-CLI.js -t france
+*       9,10,11,12,13,14,15,16  *       *       *       root /usr/bin/nodejs /home/kwaadpepepr/.msi-klm/msi-keyboard-CLI.js -k off
 ```
 
 Every minute between between 5pm and 8am my keyboard backlight will light up.

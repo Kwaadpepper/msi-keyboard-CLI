@@ -119,15 +119,11 @@ if(argv.c) {
 
 // Intensity Section
 if(argv.i) {
-  switch(argv.i) {
-    case "high":
-    case "med":
-    case "low":
-      debug('Intensity: '+argv.i);
-      defaultIntensity = argv.i;
-      break;
-    default:
-     echo("option -i accepts high,med,low, (ex: -i low) \ntype --help or -h to have some more help");
+  if(intensities.indexOf(argv.i) !== -1) {
+    debug('Intensity: '+argv.i);
+    defaultIntensity = argv.i;
+  } else {
+    echo("option -i accepts high,med,low, (ex: -i low) \ntype --help or -h to have some more help");
      process.exit(128); // Exit program
   }
 }

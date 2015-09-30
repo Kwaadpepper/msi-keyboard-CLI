@@ -1,0 +1,10 @@
+#!/bin/bash
+app="./msi-keyboard-CLI.js"
+if (($EUID != 0)); then
+  if [[ -t 1 ]]; then
+    sudo bash -c "$app $*"
+  else
+    gksu bash -c "$app $*"
+  fi
+  exit
+fi

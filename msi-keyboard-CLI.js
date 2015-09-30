@@ -1,3 +1,4 @@
+#!/usr/bin/env nodejs
 // light low med high
 // off red orange yellow green sky blue purple white
 
@@ -70,7 +71,7 @@ function printHelp() {
   h += "\n\tuses\tminimist\thttps://www.npmjs.org/package/minimist\n";
   h += "\t\tmsi-keyboard\thttps://github.com/wearefractal/msi-keyboard\n";
  
-  console.log(h);
+  echo(h);
   process.exit(1); // Exit program
 }
 
@@ -79,7 +80,7 @@ function echo() {
   for(var arg in largs) {
     largs[arg] = JSON.stringify(largs[arg]);
   }
-  console.log(largs.join(' ').replace(/["'\[\]\{\}]/g,'')+'.');
+  console.log(largs.join(' ').replace(/["'\[\]\{\}]/g,'').replace(/\\n/g,'\n').replace(/\\t/g,'\t'));
 }
 
 function debug() {
@@ -87,7 +88,7 @@ function debug() {
   for(var arg in largs) {
     largs[arg] = JSON.stringify(largs[arg]);
   }
-  if(debugVar) console.log(largs.join(' ').replace(/["'\[\]\{\}]/g,'')+'.');
+  if(debugVar) echo(largs.join(' ').replace(/["'\[\]\{\}]/g,'').replace('//','/')+'.');
 }
 
 // Help Section
@@ -123,7 +124,7 @@ if(argv.i) {
     debug('Intensity: '+argv.i);
     defaultIntensity = argv.i;
   } else {
-    echo("option -i accepts high,med,low, (ex: -i low) \ntype --help or -h to have some more help");
+    echo("\toption -i accepts high,med,low, (ex: -i low) \n\ttype --help or -h to have some more help");
      process.exit(128); // Exit program
   }
 }
@@ -133,7 +134,7 @@ if(argv.b) {
   if(typeof argv.b === "number") {
     keyboard.blink(parseInt(argv.b));
   } else {
-    echo("option -b accepts integer, (ex: -b 250 for blink = 250ms) \ntype --help or -h to have some more help");
+    echo("\toption -b accepts integer, (ex: -b 250 for blink = 250ms) \n\ttype --help or -h to have some more help");
      process.exit(128); // Exit program
   }
 }
@@ -169,7 +170,7 @@ if(argv.l) {
       }); 
       break;
     default:
-     echo("option -l accepts on or off, (ex: -l on) \ntype --help or -h to have some more help");
+     echo("\toption -l accepts on or off, (ex: -l on) \n\ttype --help or -h to have some more help");
      process.exit(128); // Exit program
   }
 }
@@ -192,7 +193,7 @@ if(argv.k) {
       }
       break;
     default:
-      echo("option -k accepts on or off, (ex: -k on) \ntype --help or -h to have some more help");
+      echo("\toption -k accepts on or off, (ex: -k on) \n\ttype --help or -h to have some more help");
       process.exit(128); // Exit program
   }
 }
@@ -209,7 +210,7 @@ for(var key in argv._) {
       var intensity = argv._[parseInt(key)+2];
       intensity = intensity?intensity:defaultIntensity;
       if(intensities.indexOf(intensity) === -1) { // Is next not an intensity
-	echo(section+" "+color+" must be followed by an intensity, given is "+intensity+" \ntype --help or -h to have some more help");
+	echo("\t"+section+" "+color+" must be followed by an intensity, given is "+intensity+" \n\ttype --help or -h to have some more help");
 	process.exit(128); // Exit program
       }
       var blink = parseInt(argv._[parseInt(key)+3]);
@@ -223,7 +224,7 @@ for(var key in argv._) {
       keyboardArgs[section].color = color;
       keyboardArgs[section].intensity = intensity;
     } else {
-      echo(section+" must be followed by a color, given is "+color+"; and optionnaly an intensity \ntype --help or -h to have some more help");
+      echo("\t"+section+" must be followed by a color, given is "+color+"; and optionnaly an intensity \n\ttype --help or -h to have some more help");
       process.exit(128); // Exit program
     }
   }
@@ -234,7 +235,7 @@ if(argv.t) {
   if(typeof themes[argv.t] !== "undefined") { // is theme
     keyboardArgs = themes[argv.t];
   } else {
-    echo("option -t must be a theme \ntype --help or -h to have some more help");
+    echo("\toption -t must be a theme \n\ttype --help or -h to have some more help");
     process.exit(128); // Exit program
   }
 }

@@ -3,7 +3,7 @@
 <h2>Note the program has to be used with a sudoer account</h2>
 <stong>You have to install ```libusb-dev``` on linux system</stong>
 ##### You can now use this as a bash script:
-msibacklight -h
+```msibacklight -h```
 
 ================
 ```

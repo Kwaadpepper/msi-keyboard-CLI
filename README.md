@@ -4,6 +4,7 @@
 <stong>You have to install ```libusb-dev``` on linux system</stong>
 ##### You can now use this as a bash script:
 ```msibacklight -h```
+(will not work with cron, keep using the explained way above for this)
 
 ================
 ```

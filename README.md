@@ -7,18 +7,7 @@
 ##### You can now use this as a bash script:
 ```msibacklight -h```
 (will not work with cron, keep using the explained way above for this)
-
-<h2>Installation</h2>
-
-    sudo apt-get install npm nodejs
-    sudo ln -s `which nodejs` /usr/bin/node
-    git clone https://github.com/Kwaadpepper/msi-keyboard-CLI.git ~/.msi-klm
-    cd ~/.msi-klm
-    npm install
-    msibacklight -k on
-    (OR)
-    sudo nodejs msi-keyboard-CLI.js -k on
-    
+ 
 ================
 ```
 Just a nodejs cli to control https://github.com/wearefractal/msi-keyboard.
@@ -59,6 +48,18 @@ nodejs msi-keyboard-CLI.js left orange light 0 -k off right red
 nodejs msi-keyboard-CLI.js -k off right blue high 1000 left blue high 1000 
 ```
 
+
+<h2>Installation (in short)</h2>
+
+    sudo apt-get install npm nodejs
+    sudo ln -s `which nodejs` /usr/bin/node
+    git clone https://github.com/Kwaadpepper/msi-keyboard-CLI.git ~/.msi-klm
+    cd ~/.msi-klm
+    npm install
+    msibacklight -k on
+    (OR)
+    sudo nodejs msi-keyboard-CLI.js -k on
+<h2>Installation (explained)</h2>
 Intall NodeJS, NPM, Python (sudo apt-get install -y python-software-properties python g++ make),(sudo apt-get install build-essential libssl-dev)
 See http://askubuntu.com/questions/545789/gt70-2pe-dominator-pro-or-equal-keyboard-backlight
 

@@ -2,6 +2,8 @@
 
 <h2>Note the program has to be used with a sudoer account</h2>
 <stong>You have to install ```libusb-dev``` on linux system</stong>
+
+**It uses https://github.com/wearefractal/msi-keyboard as a npm dependency, so no need to install it separatly, just follow the installaton instruction**
 ##### You can now use this as a bash script:
 ```msibacklight -h```
 (will not work with cron, keep using the explained way above for this)
@@ -65,6 +67,7 @@ then type which nodejs, it should give you /usr/bin/nodejs
 - Go to your home folder            <strong>"cd ~" or "cd /home/myusername"</strong>
 - Create a folder named .msi-klm    <strong>"mkdir .msi-klm && cd .msi-klm"</strong>
 - Clone the projet here             <strong>"git clone https://github.com/Kwaadpepper/msi-keyboard-CLI.git ."</strong>
+- In ```/home/myusername/.msi-klm```, do a ```npm install```
 - Edit cron tab to add 2 commands :
   - one to lightoff keyboard during the day
     <strong>```/usr/bin/nodejs /home/myusername/.msi-klm/msi-keyboard-CLI.js -k off```</strong>

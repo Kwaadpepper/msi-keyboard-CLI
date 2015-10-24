@@ -6,6 +6,17 @@
 ```msibacklight -h```
 (will not work with cron, keep using the explained way above for this)
 
+<h2>Installation</h2>
+
+    sudo apt-get install npm nodejs
+    sudo ln -s `which nodejs` /usr/bin/node
+    git clone https://github.com/Kwaadpepper/msi-keyboard-CLI.git ~/.msi-klm
+    cd ~/.msi-klm
+    npm install
+    msibacklight -k on
+    (OR)
+    sudo nodejs msi-keyboard-CLI.js -k on
+    
 ================
 ```
 Just a nodejs cli to control https://github.com/wearefractal/msi-keyboard.
@@ -69,10 +80,10 @@ So i have these lines my /etc/crontab i have the following lines:
 
 Every minute between between 5pm and 8am my keyboard backlight will light up.
 
-Now il I wan't to override this for example while watchi a movie i can't use the arg -l on like
+Now il I wan't to override this for example while watchi a movie you can use the arg -l on like
 <strong>/usr/bin/nodejs /home/myusername/.msi-klm/msi-keyboard-CLI.js -k off -l on</strong>
 
-This will lightoff the keyboard with -k off and the -l will create a ifle in /tmp so that every time a command is run without -l, it will be ignored (like the one in wu putted in /etc/crontab).
+This will lightoff the keyboard with -k off and the -l will create a file in /tmp so that every time a command is run without -l, it will be ignored (like the one we putted in /etc/crontab).
 
 <strong>Advanced users</strong>
 If you use kde or ubuntu or whatever you can add a hotkey to lightup/lightoff or any custom using kdesudo or gksudo or whatever to execute the command like:
@@ -93,3 +104,6 @@ If you want you can set any color at blink you wan't like:
 I Have Kubuntu on my MSI-GT 70 and blink and modes doesn't work on it.
 
 Please feel free to add anything you think cool, and don't forget to support authors of free libraries !
+
+**NOTE**
+Working fine with nodejs v0.10.25 and npm 1.4.21

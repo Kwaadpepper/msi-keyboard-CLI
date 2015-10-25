@@ -1,4 +1,5 @@
-#!/usr/bin/env nodejs
+#!/bin/sh
+':' //; exec "$(command -v nodejs || command -v node)" "$0" "$@"
 // light low med high
 // off red orange yellow green sky blue purple white
 

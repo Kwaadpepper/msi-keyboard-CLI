@@ -15,7 +15,7 @@ Just a nodejs cli to control https://github.com/wearefractal/msi-keyboard.
       nodejs backlight.js section color intensity(optional) blink(optional)
 	     -d		print debug
 	     -k (on|off)	Keyboard backlight
-	      -l (on|off)	Keyboard locker, command with -i won't work if -l is on
+	     -l (on|off)	Keyboard locker, command with -i won't work if -l is on
 	    		use it to override a cron task by example command without -l)
 	    -c  color	all colors
 		    	colors (red,orange,yellow,green,sky,blue,purple,white)

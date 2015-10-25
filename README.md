@@ -67,7 +67,7 @@ then type which nodejs, it should give you /usr/bin/nodejs
 
 - Go to your home folder            <strong>"cd ~" or "cd /home/myusername"</strong>
 - Create a folder named .msi-klm    <strong>"mkdir .msi-klm && cd .msi-klm"</strong>
-- Clone the projet here             <strong>"git clone https://github.com/Kwaadpepper/msi-keyboard-CLI.git ."</strong>
+- Clone the projet here             <strong>"git clone https://github.com/Kwaadpepper/msi-keyboard-CLI.git ~/.msi-klm"</strong>
 - In ```/home/myusername/.msi-klm```, do a ```npm install```
 - Edit cron tab to add 2 commands :
   - one to lightoff keyboard during the day

@@ -76,7 +76,7 @@ then type which nodejs, it should give you /usr/bin/nodejs
     <strong>```/usr/bin/nodejs /home/myusername/.msi-klm/msi-keyboard-CLI.js -t france```</strong>
 (You can use http://www.openjs.com/scripts/jslibrary/demos/crontab.php, to generate a cron task)
 
-So i have these lines my /etc/crontab i have the following lines:
+So i have these lines my /etc/crontab i have the following lines (```sudo crontab -e```):
 ```
 *       0,1,2,3,4,5,6,7,8,17,18,19,20,21,22,23  *       *       *       /usr/bin/nodejs /home/kwaadpepper/.msi-klm/msi-keyboard-CLI.js -t france
 *       9,10,11,12,13,14,15,16  *       *       *       /usr/bin/nodejs /home/kwaadpepepr/.msi-klm/msi-keyboard-CLI.js -k off

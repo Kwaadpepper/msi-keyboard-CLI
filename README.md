@@ -63,7 +63,7 @@ nodejs msi-keyboard-CLI.js -k off right blue high 1000 left blue high 1000
 Intall NodeJS, NPM, Python (sudo apt-get install -y python-software-properties python g++ make),(sudo apt-get install build-essential libssl-dev)
 See http://askubuntu.com/questions/545789/gt70-2pe-dominator-pro-or-equal-keyboard-backlight
 
-then type which nodejs, it should give you /usr/bin/nodejs
+then type ```which nodejs```, it should give you ```/usr/bin/nodejs```
 
 - Go to your home folder            <strong>"cd ~" or "cd /home/myusername"</strong>
 - Create a folder named .msi-klm    <strong>"mkdir .msi-klm && cd .msi-klm"</strong>

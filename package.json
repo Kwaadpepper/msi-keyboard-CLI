@@ -1,1 +1,15 @@
-{ "name": "led-manager", "dependencies": { "msi-keyboard":"*","minimist":"*" }}
+{
+    "name": "msi-keyboard-cli",
+    "version": "1.1.2",
+    "description": "Give a command line interface to manage your MSI keyboard backlight leds",
+    "preferGlobal": "true",
+    "bin": { "msikeyboard": "msi-keyboard-CLI.js" },
+    "author": "Jérémy Munsch",
+    "keywords": ["msi", "keyboard", "cli", "backlight", "led"],
+    "repository" : {
+        "type": "git",
+        "url": "https://github.com/Kwaadpepper/msi-keyboard-CLI.git"
+    },
+    "dependencies": { "msi-keyboard":"*","minimist":"*" },
+    "engines": { "node": "*" }
+}

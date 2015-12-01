@@ -1,4 +1,5 @@
 <h1>msi-keyboard-CLI</h1>
+[![npm version](https://badge.fury.io/js/msi-keyboard-cli.svg)](https://badge.fury.io/js/msi-keyboard-cli)
 
 <h2>Note the program has to be used with a sudoer account</h2>
 <stong>You have to install ```libusb-dev``` or ```libusb-1.0-0-dev``` on linux system</stong>

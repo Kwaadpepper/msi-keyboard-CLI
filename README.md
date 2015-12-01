@@ -6,7 +6,7 @@ You can now simply install this tool via npm :
 
 ```sudo npm install npm -g``` (*optional, uptade npm*)
 
-```sudo npm uninstall msi-keyboard-cli -g``` (*install msi-keyboard-cli*)
+```sudo npm install msi-keyboard-cli -g``` (*install msi-keyboard-cli*)
 
 Then reopen your terminal, and use it via ```sudo msikeyboard -c green```
 

@@ -7,33 +7,35 @@
 ##### You can now use this as a bash script:
 ```msibacklight -h```
 (will not work with cron, keep using the explained way above for this)
- 
+
 ================
 ```
-Just a nodejs cli to control https://github.com/wearefractal/msi-keyboard.
-    (msi-keyboard-CLI) Munsch Jeremy <jeremy.munsch@gmail.com>
-      nodejs backlight.js section color intensity(optional) blink(optional)
-	     -d		print debug
-	     -k (on|off)	Keyboard backlight
-	     -l (on|off)	Keyboard locker, command with -i won't work if -l is on
-	    		use it to override a cron task by example command without -l)
-	    -c  color	all colors
-		    	colors (red,orange,yellow,green,sky,blue,purple,white)
-    	-b  blink	blink Xms ex : -b 750
-    	-i  intensity	all colors
-	    		intensity (high,med,low,light)
-	    		section (left,middle,right)
-	    		ex : left red low
-    	-t  theme	themes are : cool,france,italy,ireland,rasta
-    	-m  mod		mods are : normal,gaming,breathe,demo,wave
-    	-h or --help prints this help message
+     (msi-keyboard-CLI) Munsch Jeremy <jeremy.munsch@gmail.com>
+     https://github.com/Kwaadpepper/msi-keyboard-CLI
 
-    	default color : white
-    	default intensity : high
-    	default section : all
+    usage : msibacklight section color secondary-color (optional) intensity (optional) blink (optional)
+        section (left, middle, right)   ex : left red low
 
-    	uses	minimist	https://www.npmjs.org/package/minimist
-	        	msi-keyboard	https://github.com/wearefractal/msi-keyboard
+    --eg,       shows usage examples
+    --examples
+    -d, --debug print debug
+    -k (on|off) Keyboard backlight
+    -l (on|off) using -l on will force any furter commands to be ignored if not run with this same option.
+             (use it to override a cron task by example command without -l), disable it by using `-l off`
+    -c  color   Applies to all sections
+            colors (red, orange, yellow, green, sky, blue, purple, white, off)
+    -b  blink   blink N ms ex : -b 750
+    -i  intensity   Applies to all sections (high, med, low, light)
+    -t  theme   themes are : cool, france, italy, ireland, rasta, canada, cop, sith, k2000
+    -m  mod     mods are : normal, gaming, breathe, demo, wave
+    -h, --help  prints this help message
+
+    default color : white
+    default intensity : high
+    default section : all
+
+    dependencies    minimist        https://www.npmjs.org/package/minimist
+                    msi-keyboard    https://github.com/wearefractal/msi-keyboard
 ```
 ================
 Example of use:

@@ -8,6 +8,8 @@ You can now simply install this tool via npm :
 
 ```sudo npm uninstall msi-keyboard-cli -g``` (*install msi-keyboard-cli*)
 
+Then reopen your terminal, and use it via ```sudo msikeyboard -c green```
+
 ========
 <h2>Note the program has to be used with a sudoer account</h2>
 <stong>You have to install ```libusb-dev``` or ```libusb-1.0-0-dev``` on linux system</stong>

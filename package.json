@@ -11,5 +11,6 @@
         "url": "https://github.com/Kwaadpepper/msi-keyboard-CLI.git"
     },
     "dependencies": { "msi-keyboard":"*","minimist":"*" },
-    "engines": { "node": "*" }
+    "engines": { "node": "*" },
+    "license": "MIT"
 }

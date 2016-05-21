@@ -12,7 +12,7 @@ process.on('SIGTERM', function () {
 
 // Requirements
 var argv = require ('minimist')(process.argv.slice (2));
-var keyboard = require ('msi-keyboard');
+var keyboard = require ('msi-keyboard')();
 var fs = require ('fs');
 
 // Vars

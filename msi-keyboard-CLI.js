@@ -23,40 +23,42 @@ var defaultIntensity = 'high';
 var locked = false;
 var tmpFileName = '/tmp/_keyboard.backlight.lock';
 
-var lightOff = 'off';
-var colors = ['red','orange','yellow','green','cyan','blue','purple','white', 'black'];
+var lightOff = 'black';
+var offColour = lightOff;
+var offColour_alias = 'off';
+var colors = ['red','orange','yellow','green','cyan','blue','purple','white', offColour_alias];
 var sections = ['left','middle','right'];
 var intensities = ['high','med','low','light'];
 var themes = {
     'cool' : {
-        'left' : { 'color' : 'green', 'secondary': 'black'},
-        'middle' : { 'color' : 'yellow', 'secondary': 'black'},
-        'right' : { 'color' : 'yellow', 'secondary': 'black'}
+        'left' : { 'color' : 'green', 'secondary': offColour},
+        'middle' : { 'color' : 'yellow', 'secondary': offColour},
+        'right' : { 'color' : 'yellow', 'secondary': offColour}
     },
     'france' : {
-        'left' : { 'color' : 'blue', 'secondary': 'black'},
-        'middle' : { 'color' : 'white', 'secondary': 'black'},
-        'right' : { 'color' : 'red', 'secondary': 'black'}
+        'left' : { 'color' : 'blue', 'secondary': offColour},
+        'middle' : { 'color' : 'white', 'secondary': offColour},
+        'right' : { 'color' : 'red', 'secondary': offColour}
     },
     'italy' : {
-        'left' : { 'color' : 'green', 'secondary': 'black'},
-        'middle' : { 'color' : 'white', 'secondary': 'black'},
-        'right' : { 'color' : 'red', 'secondary': 'black'}
+        'left' : { 'color' : 'green', 'secondary': offColour},
+        'middle' : { 'color' : 'white', 'secondary': offColour},
+        'right' : { 'color' : 'red', 'secondary': offColour}
     },
     'ireland' : {
-        'left' : { 'color' : 'green', 'secondary': 'black'},
-        'middle' : { 'color' : 'white', 'secondary': 'black'},
-        'right' : { 'color' : 'orange', 'secondary': 'black'}
+        'left' : { 'color' : 'green', 'secondary': offColour},
+        'middle' : { 'color' : 'white', 'secondary': offColour},
+        'right' : { 'color' : 'orange', 'secondary': offColour}
     },
     'rasta' : {
-        'left' : { 'color' : 'green', 'secondary': 'black'},
-        'middle' : { 'color' : 'yellow', 'secondary': 'black'},
-        'right' : { 'color' : 'red', 'secondary': 'black'}
+        'left' : { 'color' : 'green', 'secondary': offColour},
+        'middle' : { 'color' : 'yellow', 'secondary': offColour},
+        'right' : { 'color' : 'red', 'secondary': offColour}
     },
     'canada' : {
-        'left' : { 'color' : 'red', 'secondary': 'black'},
-        'middle' : { 'color' : 'white', 'secondary': 'black'},
-        'right' : { 'color' : 'red', 'secondary': 'black'}
+        'left' : { 'color' : 'red', 'secondary': offColour},
+        'middle' : { 'color' : 'white', 'secondary': offColour},
+        'right' : { 'color' : 'red', 'secondary': offColour}
     },
     'cop' : {
         'left' : { 'color' : 'blue', 'secondary' : 'red'},
@@ -65,14 +67,14 @@ var themes = {
         'mode': 'wave'
     },
     'sith' : {
-        'left' : { 'color' : 'red', 'secondary' : 'black'},
-        'middle' : { 'color' : 'black', 'secondary' : 'black'},
-        'right' : { 'color' : 'red', 'secondary' : 'black'}
+        'left' : { 'color' : 'red', 'secondary' : offColour},
+        'middle' : { 'color' : offColour, 'secondary' : offColour},
+        'right' : { 'color' : 'red', 'secondary' : offColour}
     },
     'k2000' : {
-        'left' : { 'color' : 'red', 'secondary' : 'black'},
-        'middle' : { 'color' : 'red', 'secondary' : 'black'},
-        'right' : { 'color' : 'red', 'secondary' : 'black'},
+        'left' : { 'color' : 'red', 'secondary' : offColour},
+        'middle' : { 'color' : 'red', 'secondary' : offColour},
+        'right' : { 'color' : 'red', 'secondary' : offColour},
         'mode': 'wave'
     }
 };
@@ -165,6 +167,7 @@ if (argv.c) {
     // Choosen colors exists
     if (colors.indexOf (argv.c) !== -1) {
         defaultColor = colors[colors.indexOf (argv.c)];
+        defaultColor = (defaultColor == offColour_alias ? offColour : defaultColor);
         debug ('Color is set to ', defaultColor);
     } else {
         echo ('You have to choose a color between :', colors);
@@ -184,9 +187,9 @@ if (argv.i) {
 }
 
 var keyboardArgs = {
-    'left' : { 'color' : defaultColor, 'intensity' : defaultIntensity, 'secondary': 'black'},
-    'middle' : { 'color' : defaultColor, 'intensity' : defaultIntensity, 'secondary': 'black'},
-    'right' : { 'color' : defaultColor, 'intensity' : defaultIntensity, 'secondary': 'black'},
+    'left' : { 'color' : defaultColor, 'intensity' : defaultIntensity, 'secondary': offColour},
+    'middle' : { 'color' : defaultColor, 'intensity' : defaultIntensity, 'secondary': offColour},
+    'right' : { 'color' : defaultColor, 'intensity' : defaultIntensity, 'secondary': offColour},
 };
 
 // Lock Section
@@ -258,10 +261,14 @@ for (var key in argv._) {
         debug ('Section given is ', section);
         var color = argv._[parseInt (key)+1];
 
+        if (color === offColour_alias) {
+            color = offColour;
+        }
+
         // is next a color
         if (colors.indexOf (color) !== -1) {
             debug ('Color of  ', section, ' is ', color);
-            keyboardArgs[section].secondary = 'black';
+            keyboardArgs[section].secondary = offColour;
             var offset = 0;
             var secondary = argv._[parseInt (key)+2];
             var intensity = argv._[parseInt (key)+offset+2];
@@ -274,7 +281,7 @@ for (var key in argv._) {
                     offset = 1;
                     keyboardArgs[section].secondary = secondary;
                 } else if (typeof secondary === 'undefined') {
-                    secondary = secondary?secondary:'black';
+                    secondary = secondary?secondary:offColour;
                 } else {
                     echo ('\t', section, ' ', color, ' ', secondary, ', ', secondary, ' is not a valid color nor a valid intensity, given is ', secondary, ' \n\ttype --help or -h to have some more help');
                     process.exit (128);
@@ -286,7 +293,7 @@ for (var key in argv._) {
 
              // Is next not an intensity
             if (intensities.indexOf (intensity) === -1) {
-                if (intensity !== 'black')
+                if (intensity !== offColour)
                     echo ('\t', section, ' ', color, ' ', secondary, ' must be followed by a valid intensity, given is ', intensity, ' \n\ttype --help or -h to have some more help');
                 else
                     echo ('\t', section, ' ', color, ' must be followed by a valid intensity, given is ', intensity, ' \n\ttype --help or -h to have some more help');

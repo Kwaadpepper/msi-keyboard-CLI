@@ -1,7 +1,7 @@
 var keyboard = require('msi-keyboard');
 // light low med high
-//off red orange yellow green sky blue purple white
-keyboard.color('left', {color: 'off', intensity: 'high'});
-keyboard.color('middle', {color: 'off', intensity: 'high'});
-keyboard.color('right', {color: 'off', intensity: 'high'});
+// black red orange yellow green cyan blue purple white
+keyboard.color('left', {color: 'black', intensity: 'high'});
+keyboard.color('middle', {color: 'black', intensity: 'high'});
+keyboard.color('right', {color: 'black', intensity: 'high'});
 

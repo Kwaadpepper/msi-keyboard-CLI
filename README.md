@@ -12,7 +12,7 @@ Then reopen your terminal, and use it via ```sudo msikeyboard -c green```
 
 ========
 <h2>Note the program has to be used with a sudoer account</h2>
-<stong>You have to install ```libusb-dev``` or ```libusb-1.0-0-dev``` on linux system</stong>
+<stong>You have to install ```libusb-dev``` or ```libusb-1.0-0-dev``` on linux system, on CentOS (libusbx-devel) </stong>
 
 **It uses https://github.com/wearefractal/msi-keyboard as a npm dependency, so no need to install it separatly, just follow the installaton instruction**
 ##### You can now use this as a bash script:

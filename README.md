@@ -14,7 +14,7 @@ Then reopen your terminal, and use it via ```sudo msikeyboard -c green```
 <h2>Note the program has to be used with a sudoer account</h2>
 <stong>You have to install ```libusb-dev``` or ```libusb-1.0-0-dev``` on linux system, on CentOS (```libusbx-devel```) </stong>
 
-**It uses https://github.com/wearefractal/msi-keyboard as a npm dependency, so no need to install it separatly, just follow the installaton instruction**
+**It uses https://github.com/stevelacy/msi-keyboard as a npm dependency, so no need to install it separatly, just follow the installaton instruction**
 ##### You can now use this as a bash script:
 ```msibacklight -h```
 (will not work with cron, keep using the explained way above for this)
@@ -46,7 +46,7 @@ Then reopen your terminal, and use it via ```sudo msikeyboard -c green```
     default section : all
 
     dependencies    minimist        https://www.npmjs.org/package/minimist
-                    msi-keyboard    https://github.com/wearefractal/msi-keyboard
+                    msi-keyboard    https://github.com/stevelacy/msi-keyboard
 ```
 ================
 Example of use:

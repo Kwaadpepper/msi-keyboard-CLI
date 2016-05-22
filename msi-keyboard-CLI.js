@@ -103,7 +103,7 @@ function printHelp () {
     h += '\tdefault intensity : '+defaultIntensity+'\n';
     h += '\tdefault section : '+defaultSection+'\n';
     h += '\n\tdependencies\tminimist\thttps://www.npmjs.org/package/minimist\n';
-    h += '\t\t\tmsi-keyboard\thttps://github.com/wearefractal/msi-keyboard\n';
+    h += '\t\t\tmsi-keyboard\thttps://github.com/stevelacy/msi-keyboard\n';
 
     echo (h);
     process.exit (1);

@@ -113,7 +113,7 @@ function printHelp () {
     h += '\t\t\t (use it to override a cron task by example command without -l), disable it by using `-l off`\n';
     h += '\t-c  color\tApplies to all sections\n';
     h += '\t\t\tcolors ('+colors.join (', ')+')\n';
-    h += '\t-b  blink\tblink N ms ex : -b 750\n';
+    h += '\t-b  blink\tblink N ms ex : -b 750 (use \'msibacklight\' to run in background)\n';
     h += '\t-i  intensity\tApplies to all sections ('+intensities.join (', ')+')\n';
     h += '\t-t  theme\tthemes are : '+Object.keys (themes).join (', ')+'\n';
     h += '\t-m  mod\t\tmods are : '+mods.join (', ')+'\n';

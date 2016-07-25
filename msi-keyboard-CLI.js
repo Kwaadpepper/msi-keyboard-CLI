@@ -155,6 +155,35 @@ function debug () {
         echo (largs.join (' ').replace (/["'\[\]\{\}]/g,'').replace ('//','/'), '.');
 }
 
+function lock () {
+    // Lock Section
+    if (argv.l) {
+        switch (argv.l) {
+            case 'on':
+                debug ('Lock: on');
+                fs.writeFile (tmpFileName, 'locked', function (err) {
+                    if (err)
+                        debug (err);
+                    else
+                        debug ('Lock is successfull');
+                });
+                break;
+            case 'off':
+                debug ('Lock: off');
+                fs.unlink (tmpFileName, function (err) {
+                    if (err)
+                        debug (err);
+                    else
+                        debug ('Unlock is successfull');
+                });
+                break;
+            default:
+             echo ('\toption -l accepts on or off, (ex: -l on) \n\ttype --help or -h to have some more help');
+             process.exit (128);
+        }
+    }
+}
+
 // Help Section
 if (argv.h || argv.help)
     printHelp ();
@@ -192,34 +221,10 @@ var keyboardArgs = {
     'right' : { 'color' : defaultColor, 'intensity' : defaultIntensity, 'secondary': offColour},
 };
 
-// Lock Section
+// Unlock in priority
 if (argv.l) {
-    switch (argv.l) {
-        case 'on':
-            debug ('Lock: on');
-            fs.writeFile (tmpFileName, 'locked', function (err) {
-                if (err)
-                    debug (err);
-                else
-                    debug ('Lock is successfull');
-            });
-            break;
-        case 'off':
-            debug ('Lock: off');
-            fs.unlink (tmpFileName, function (err) {
-                if (err)
-                    debug (err);
-                else
-                    debug ('Unlock is successfull');
-            });
-            break;
-        default:
-         echo ('\toption -l accepts on or off, (ex: -l on) \n\ttype --help or -h to have some more help');
-         process.exit (128);
-    }
-
-    if (!argv.k && !argv._.length && !argv.t && !argv.m)
-        process.exit (0);
+    if (argv.l == 'off')
+        lock ();
 }
 
 var ignore = false;
@@ -402,5 +407,8 @@ if (argv.m) {
         process.exit (128);
     }
 }
+
+// handle lock if multiple args were given
+lock ();
 
 // End of program

@@ -3,17 +3,38 @@
 // light low med high
 // black red orange yellow green cyan blue purple white
 
-// handle exit
-process.on('SIGTERM', function () {
-  server.close(function () {
-    process.exit(0);
-  });
-});
+// Temp File paths
+var tmpFileName = '/tmp/_keyboard.backlight.lock';
+var tmpPidFile = '/tmp/_keyboard.backlight.pid';
+
+// Handle exit
+var signalTermination = function (argv) {
+    for (var section in keyboardArgs) {
+        keyboardArgs[section].color = lightOff;
+        keyboardArgs[section].intensity = defaultIntensity;
+        keyboard.color (section, keyboardArgs[section]);
+    }
+    exit(0);
+};
+process.on('SIGTERM', signalTermination);
+process.on('SIGINT', signalTermination);
+process.on('SIGHUP', signalTermination);
+
 
 // Requirements
-var argv = require ('minimist')(process.argv.slice (2));
-var keyboard = require ('msi-keyboard')();
+argv = require ('minimist')(process.argv.slice (2));
 var fs = require ('fs');
+
+// check if another process is running
+try {
+    var pid = fs.readFileSync (tmpPidFile).toString ();
+    console.log ('Another process is running terminating it now !');
+    process.kill(pid, 'SIGTERM');
+} catch(e) {
+    // No other processes running
+}
+
+var keyboard = require ('msi-keyboard')();
 
 // Vars
 var debugVar = (argv.d || argv.debug ? true : false);
@@ -21,8 +42,6 @@ var defaultColor = 'white';
 var defaultSection = 'all';
 var defaultIntensity = 'high';
 var locked = false;
-var tmpFileName = '/tmp/_keyboard.backlight.lock';
-
 var lightOff = 'black';
 var offColour = lightOff;
 var offColour_alias = 'off';
@@ -106,7 +125,7 @@ function printHelp () {
     h += '\t\t\tmsi-keyboard\thttps://github.com/stevelacy/msi-keyboard\n';
 
     echo (h);
-    process.exit (1);
+    exit (1);
 }
 
 function printExamples () {
@@ -135,7 +154,7 @@ function printExamples () {
     h += '\tmsibacklight right black blue high 0 left black red high 150 middle black white -m wave\n\n';
 
     echo (h);
-    process.exit (1);
+    exit (1);
 }
 
 function echo () {
@@ -179,10 +198,26 @@ function lock () {
                 break;
             default:
              echo ('\toption -l accepts on or off, (ex: -l on) \n\ttype --help or -h to have some more help');
-             process.exit (128);
+             exit (128);
         }
     }
 }
+
+function exit (code, keepRunning) {
+    var keepRunning = keepRunning || -1;
+
+    fs.unlink (tmpPidFile, function (err) {
+        if (err)
+            debug (err);
+        else
+            debug ('Deleted PID file');
+    });
+    if (keepRunning === -1)
+        process.exit (code);
+}
+
+// write current PID
+fs.writeFileSync (tmpPidFile, process.pid);
 
 // Help Section
 if (argv.h || argv.help)
@@ -200,7 +235,7 @@ if (argv.c) {
         debug ('Color is set to ', defaultColor);
     } else {
         echo ('You have to choose a color between :', colors);
-        process.exit (128);
+        exit (128);
     }
 }
 
@@ -211,7 +246,7 @@ if (argv.i) {
         defaultIntensity = argv.i;
     } else {
         echo ('\toption -i accepts high,med,low,light (ex: -i low) \n\ttype --help or -h to have some more help');
-        process.exit (128);
+        exit (128);
     }
 }
 
@@ -249,7 +284,7 @@ if (argv.k) {
             break;
         default:
             echo ('\toption -k accepts on or off, (ex: -k on) \n\ttype --help or -h to have some more help');
-            process.exit (128);
+            exit (128);
     }
 }
 
@@ -289,7 +324,7 @@ for (var key in argv._) {
                     secondary = secondary?secondary:offColour;
                 } else {
                     echo ('\t', section, ' ', color, ' ', secondary, ', ', secondary, ' is not a valid color nor a valid intensity, given is ', secondary, ' \n\ttype --help or -h to have some more help');
-                    process.exit (128);
+                    exit (128);
                 }
             }
 
@@ -302,7 +337,7 @@ for (var key in argv._) {
                     echo ('\t', section, ' ', color, ' ', secondary, ' must be followed by a valid intensity, given is ', intensity, ' \n\ttype --help or -h to have some more help');
                 else
                     echo ('\t', section, ' ', color, ' must be followed by a valid intensity, given is ', intensity, ' \n\ttype --help or -h to have some more help');
-                process.exit (128);
+                exit (128);
             }
 
             var blink = parseInt (argv._[parseInt (key)+offset+3]);
@@ -311,7 +346,7 @@ for (var key in argv._) {
                 blinkTime = blink;
             } else if (typeof argv._[parseInt (key)+offset+3] !== 'undefined') {
                 echo ('blink must be a number, given is ', argv._[parseInt (key)+offset+3]);
-                process.exit (128);
+                exit (128);
             }
 
             debug ('Section ', section, ' is set to ', color, ', ', secondary, ' as secondary color, at ', intensity, ' level and blinks at ', blink, ' ms');
@@ -319,7 +354,7 @@ for (var key in argv._) {
             keyboardArgs[section].intensity = intensity;
         } else {
             echo ('\t', section, ' must be followed by a color, given is', color, '\n\ttype --help or -h to have some more help');
-            process.exit (128);
+            exit (128);
         }
     }
 }
@@ -340,7 +375,7 @@ if (!ignore && argv.t) {
         }
     } else {
         echo ('\toption -t must be a theme \n\ttype --help or -h to have some more help');
-        process.exit (128);
+        exit (128);
     }
 }
 
@@ -351,35 +386,32 @@ fs.exists (tmpFileName, function (exists) {
 
     if (locked) {
         debug ('Don\'t touch anything because keyboard backlight is locked: file present ', tmpFileName);
-        process.exit (-1);
-    }
-
-
-    for (var section in keyboardArgs) {
-        debug (section,keyboardArgs[section]);
-        keyboard.color (section, keyboardArgs[section]);
-    };
-
-    // Blink Section
-    if (argv.b || blinkSections.length !== 0) {
-        if (blinkSections.length !== 0) {
-            if (blinkTime !== 0) {
-                debug ('multi blinking with ', blinkTime, ' on sections ', blinkSections);
-                keyboard.blink (blinkSections, blinkTime);
-            }
-        }
-        else if (typeof argv.b === 'number') {
-            debug ('blinking with ', argv.b);
-            keyboard.blink (parseInt (argv.b));
-        }
-        else {
-            echo ('\toption -b accepts integer, (ex: -b 250 for blink = 250ms) \n\ttype --help or -h to have some more help');
-            process.exit (128);
-        }
+        exit (-1);
     }
 });
 
-// keyboard.mode ('gaming');
+for (var section in keyboardArgs) {
+    debug (section,keyboardArgs[section]);
+    keyboard.color (section, keyboardArgs[section]);
+};
+
+// Blink Section
+if (argv.b || blinkSections.length !== 0) {
+    if (blinkSections.length !== 0) {
+        if (blinkTime !== 0) {
+            debug ('multi blinking with ', blinkTime, ' on sections ', blinkSections);
+            keyboard.blink (blinkSections, blinkTime);
+        }
+    }
+    else if (typeof argv.b === 'number') {
+        debug ('blinking with ', argv.b);
+        keyboard.blink (parseInt (argv.b));
+    }
+    else {
+        echo ('\toption -b accepts integer, (ex: -b 250 for blink = 250ms) \n\ttype --help or -h to have some more help');
+        exit (128);
+    }
+}
 
 // Mod Section
 if (argv.m) {
@@ -388,23 +420,23 @@ if (argv.m) {
             case 'demo':
                 debug ('mode set to ', argv.m);
                 keyboard.mode (argv.m);
-                process.exit (0);
+                exit (0);
             case 'gaming':
                 debug ('mode set to ', argv.m, ' with ', JSON.stringify (keyboardArgs['left']).replace (/["'\[\]\{\}]/g,''));
                 keyboard.color ('left', keyboardArgs['left']);
                 keyboard.mode (argv.m);
-                process.exit (0);
+                exit (0);
             case 'normal':
                 debug ('mode set to ', argv.m, 'skipping');
                 break;
             default:
                 debug ('mode set to ', argv.m, ' with ', JSON.stringify (keyboardArgs).replace (/["'\[\]\{\}]/g,''));
                 keyboard.mode (argv.m, keyboardArgs);
-                process.exit (0);
+                exit (0);
         }
     } else {
         echo ('You have to choose a mod between :',mods);
-        process.exit (128);
+        exit (128);
     }
 }
 

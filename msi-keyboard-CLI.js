@@ -443,4 +443,8 @@ if (argv.m) {
 // handle lock if multiple args were given
 lock ();
 
+if (typeof argv.b === 'undefined') {
+    exit (0);
+}
+
 // End of program

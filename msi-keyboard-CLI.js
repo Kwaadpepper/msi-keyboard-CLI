@@ -28,7 +28,7 @@ var fs = require ('fs');
 // check if another process is running
 try {
     var pid = fs.readFileSync (tmpPidFile).toString ();
-    console.log ('Another process is running terminating it now !');
+    debug ('Another process is running terminating it now !');
     process.kill(pid, 'SIGTERM');
 } catch(e) {
     // No other processes running
@@ -147,11 +147,11 @@ function printExamples () {
     h += '\tCop3 (last blink value has priority)\n';
     h += '\tmsibacklight -c red left blue red high 250 right blue red high 500\n\n';
     h += '\tCop4 (last blink value has priority)\n';
-    h += '\tmsibacklight right red blue high 0 left blue red high 150 middle white black -m wave\n\n';
+    h += '\tmsibacklight right red blue high 0 left blue red high 150 middle white off -m wave\n\n';
     h += '\tCop4 (last blink value has priority)\n';
-    h += '\tmsibacklight right red blue high 0 left blue red high 150 middle white black -m wave\n\n';
+    h += '\tmsibacklight right red blue high 0 left blue red high 150 middle white off -m wave\n\n';
     h += '\tCop5 (last blink value has priority)\n';
-    h += '\tmsibacklight right black blue high 0 left black red high 150 middle black white -m wave\n\n';
+    h += '\tmsibacklight right off blue high 0 left off red high 150 middle off white -m wave\n\n';
 
     echo (h);
     exit (1);
@@ -171,7 +171,7 @@ function debug () {
         largs[arg] = JSON.stringify (largs[arg]);
     }
     if (debugVar)
-        echo (largs.join (' ').replace (/["'\[\]\{\}]/g,'').replace ('//','/'), '.');
+        echo ('DEBUG:  ' + largs.join (' ').replace (/["'\[\]\{\}]/g,'').replace ('//','/'), '.');
 }
 
 function lock () {
@@ -180,21 +180,23 @@ function lock () {
         switch (argv.l) {
             case 'on':
                 debug ('Lock: on');
-                fs.writeFile (tmpFileName, 'locked', function (err) {
-                    if (err)
-                        debug (err);
-                    else
-                        debug ('Lock is successfull');
-                });
+                try {
+                    fs.writeFileSync (tmpFileName, 'locked');
+                    echo ('\tKeyboard backlight is locked use `-l off` to unlock it.');
+                    debug ('Lock is successfull');
+                } catch(err) {
+                    debug (err);
+                }
                 break;
             case 'off':
                 debug ('Lock: off');
-                fs.unlink (tmpFileName, function (err) {
-                    if (err)
-                        debug (err);
-                    else
-                        debug ('Unlock is successfull');
-                });
+                try {
+                    fs.unlinkSync (tmpFileName);
+                    echo ('\tKeyboard backlight is unlocked.');
+                    debug ('Unlock is successfull');
+                } catch(err) {
+                    debug (err);
+                }
                 break;
             default:
              echo ('\toption -l accepts on or off, (ex: -l on) \n\ttype --help or -h to have some more help');
@@ -257,9 +259,14 @@ var keyboardArgs = {
 };
 
 // Unlock in priority
-if (argv.l) {
-    if (argv.l == 'off')
-        lock ();
+if (argv.l == 'off')
+    lock ();
+
+// Check is locked
+if (fs.existsSync (tmpFileName)) {
+    echo ('\tKeyboard backlight is locked use `-l off` to unlock it.');
+    debug ('Don\'t touch anything because keyboard backlight is locked: file present ', tmpFileName);
+    exit (-1);
 }
 
 var ignore = false;
@@ -301,12 +308,9 @@ for (var key in argv._) {
         debug ('Section given is ', section);
         var color = argv._[parseInt (key)+1];
 
-        if (color === offColour_alias) {
-            color = offColour;
-        }
-
         // is next a color
         if (colors.indexOf (color) !== -1) {
+            color = color === offColour_alias ? offColour : color;
             debug ('Color of  ', section, ' is ', color);
             keyboardArgs[section].secondary = offColour;
             var offset = 0;
@@ -316,10 +320,10 @@ for (var key in argv._) {
 
             // is secondary a color
             if (intensities.indexOf (intensity) === -1) {
-                if (colors.indexOf (secondary) !== -1) {
-                    debug ('Secondary color of ', section, ' is ', secondary);
                     offset = 1;
-                    keyboardArgs[section].secondary = secondary;
+                    keyboardArgs[section].secondary = secondary === offColour_alias ? offColour : secondary;
+                if (colors.indexOf (secondary) !== -1) {
+                    debug ('Secondary color of ', section, ' is ', keyboardArgs[section].secondary);
                 } else if (typeof secondary === 'undefined') {
                     secondary = secondary?secondary:offColour;
                 } else {
@@ -379,17 +383,6 @@ if (!ignore && argv.t) {
     }
 }
 
-// Check is locked
-fs.exists (tmpFileName, function (exists) {
-    locked = exists?true:false;
-    debug ('Locked status is ', locked);
-
-    if (locked) {
-        debug ('Don\'t touch anything because keyboard backlight is locked: file present ', tmpFileName);
-        exit (-1);
-    }
-});
-
 for (var section in keyboardArgs) {
     debug (section,keyboardArgs[section]);
     keyboard.color (section, keyboardArgs[section]);
@@ -432,7 +425,6 @@ if (argv.m) {
             default:
                 debug ('mode set to ', argv.m, ' with ', JSON.stringify (keyboardArgs).replace (/["'\[\]\{\}]/g,''));
                 keyboard.mode (argv.m, keyboardArgs);
-                exit (0);
         }
     } else {
         echo ('You have to choose a mod between :',mods);
@@ -440,8 +432,11 @@ if (argv.m) {
     }
 }
 
+debug ("LOCK "+argv.l)
+
 // handle lock if multiple args were given
-lock ();
+if (argv.l == 'on')
+    lock ();
 
 if (typeof argv.b === 'undefined') {
     exit (0);

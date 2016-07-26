@@ -2,10 +2,10 @@
 app=$(dirname $(realpath $BASH_SOURCE))"/msi-keyboard-CLI.js"
 if (($EUID != 0)); then
   if [[ -t 1 ]]; then
-    sudo echo -e ""
+    sudo echo -e "" > /dev/null
     sudo bash -c "$app $*"&
   else
-    sudo echo -e ""
+    sudo echo -e "" > /dev/null
     gksu bash -c "$app $*"&
   fi
   sleep 0.1

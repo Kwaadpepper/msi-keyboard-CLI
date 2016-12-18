@@ -34,7 +34,7 @@ Then reopen your terminal, and use it via ```sudo msikeyboard -c green```
     -l (on|off) using -l on will force any furter commands to be ignored if not run with this same option.
              (use it to override a cron task by example command without -l), disable it by using `-l off`
     -c  color   Applies to all sections
-            colors (red, orange, yellow, green, sky, blue, purple, white, black)
+            colors (red, orange, yellow, green, cyan, blue, purple, white, black)
     -b  blink   blink N ms ex : -b 750 (use 'msibacklight' to run in background)
     -i  intensity   Applies to all sections (high, med, low, light)
     -t  theme   themes are : cool, france, italy, ireland, rasta, canada, cop, sith, k2000

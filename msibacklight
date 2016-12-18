@@ -1,13 +1,21 @@
 #!/bin/bash
 app=$(dirname $(realpath $BASH_SOURCE))"/msi-keyboard-CLI.js"
+comment="MSI Backlight needs root privileges in order to communicate with keyboard leds"
 if (($EUID != 0)); then
   if [[ -t 1 ]]; then
-    sudo echo -e "" > /dev/null
-    sudo bash -c "$app $*"&
+   sudo echo -e "" > /dev/null
+   sudo bash -c "$app $*"&
   else
-    sudo echo -e "" > /dev/null
-    gksu bash -c "$app $*"&
+    if type kdesudo >/dev/null 2>&1; then
+      kdesudo --comment "$comment" -c "bash -c \"$app $*\""
+      exit 0
+    elif type gksudo >/dev/null 2>&1; then
+      gksu --description "$comment" "bash -c '$app $*'"
+      exit 0
+    fi
+    sudo bash -c "$app $*"&
+    sleep 0.1; exit 0;
   fi
-  sleep 0.1
-  exit 0
+else
+  bash -c "$app $*"&
 fi

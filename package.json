@@ -1,6 +1,6 @@
 {
   "name": "msi-keyboard-cli",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Give a command line interface to manage your MSI keyboard backlight leds",
   "preferGlobal": "true",
   "bin": {

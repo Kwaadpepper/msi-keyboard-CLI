@@ -95,6 +95,9 @@ So i have these lines my /etc/crontab i have the following lines (```sudo cronta
 *       9,10,11,12,13,14,15,16  *       *       *       /usr/bin/nodejs /home/kwaadpepepr/.msi-klm/msi-keyboard-CLI.js -k off
 ```
 
+You can now directly call ```msibacklight``` in a cront task if you installed it using ```npm -g```
+
+
 Every minute between between 5pm and 8am my keyboard backlight will light up.
 
 Now il I wan't to override this for example while watchi a movie you can use the arg -l on like

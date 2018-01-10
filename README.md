@@ -1,6 +1,5 @@
 <h1>msi-keyboard-CLI</h1>
-[![npm version](https://badge.fury.io/js/msi-keyboard-cli.svg)](https://badge.fury.io/js/msi-keyboard-cli)
-
+<a href="https://badge.fury.io/js/msi-keyboard-cli"><img src="https://badge.fury.io/js/msi-keyboard-cli.svg" alt="npm version" height="18"></a>
 
 You can now simply install this tool via npm :
 

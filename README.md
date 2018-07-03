@@ -51,13 +51,18 @@ Then reopen your terminal, and use it via ```sudo msikeyboard -c green```
 Example of use:
 
 ```
-nodejs msi-keyboard-CLI.js
-nodejs msi-keyboard-CLI.js -c green
-nodejs msi-keyboard-CLI.js -i low
-nodejs msi-keyboard-CLI.js -k off
-nodejs msi-keyboard-CLI.js -b 600
-nodejs msi-keyboard-CLI.js left orange light 0 -k off right red
-nodejs msi-keyboard-CLI.js -k off right blue high 1000 left blue high 1000
+sudo nodejs msi-keyboard-CLI.js
+sudo nodejs msi-keyboard-CLI.js -c green
+sudo nodejs msi-keyboard-CLI.js -i low
+sudo nodejs msi-keyboard-CLI.js -k off
+sudo nodejs msi-keyboard-CLI.js -b 600
+sudo nodejs msi-keyboard-CLI.js left orange light 0 -k off right red
+sudo nodejs msi-keyboard-CLI.js -k off right blue high 1000 left blue high 1000
+
+or replace "sudo  nodejs msi-keyboard-CLI.js" by "msibacklight"
+
+msibacklight -c green
+
 ```
 
 

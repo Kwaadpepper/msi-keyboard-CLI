@@ -1,6 +1,9 @@
 <h1>msi-keyboard-CLI</h1>
 <a href="https://badge.fury.io/js/msi-keyboard-cli"><img src="https://badge.fury.io/js/msi-keyboard-cli.svg" alt="npm version" height="18"></a>
 
+***If you have a color per key based keyboard use this <i>https://github.com/Askannz/msi-perkeyrgb#branch=master</i>.
+msi-keyboard-CLI will work only with a region based keyboard.***
+
 You can now simply install this tool via npm :
 
 ```sudo npm install npm -g``` (*optional, uptade npm*)

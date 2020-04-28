@@ -219,7 +219,7 @@ function exit (code, keepRunning) {
 }
 
 // write current PID
-fs.writeFileSync (tmpPidFile, process.pid);
+fs.writeFileSync (tmpPidFile, process.pid.toString());
 
 // Help Section
 if (argv.h || argv.help)

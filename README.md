@@ -19,7 +19,7 @@ Then reopen your terminal, and use it via ```sudo msikeyboard -c green```
 **It uses https://github.com/stevelacy/msi-keyboard as a npm dependency, so no need to install it separatly, just follow the installaton instruction**
 ##### You can now use this as a bash script:
 ```msibacklight -h```
-(will not work with cron, keep using the explained way above for this)
+(will not work with cron, keep using the explained way under to make cron tasks working)
 
 ================
 ```
